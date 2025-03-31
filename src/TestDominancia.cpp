@@ -28,8 +28,8 @@ int main(int argc, char const *argv[]) {
   int metodo = argc > 3 ?  atoi(argv[3]) : 0;
 
   cout << "#Generando puntos.. \n";
-//  vector<Individuo *> inds = generaPtosAleatorios(numPtos, numEvals);
-  vector<Individuo *> inds = generaPtosNoDominados(numPtos, numEvals);
+  vector<Individuo *> inds = generaPtosAleatorios(numPtos, numEvals);
+  //vector<Individuo *> inds = generaPtosNoDominados(numPtos, numEvals);
 
   cout << "#Total de Puntos generados: "<< inds.size() << "\n";
 //  imprimirPtos(inds);
@@ -52,49 +52,11 @@ int main(int argc, char const *argv[]) {
  
 
   cout << "#Alg Cuad, Puntos no Dominados: " << noDominados.size() << " \n";
-//  imprimirPtos(noDominados);
+  imprimirPtos(noDominados);
 
-
-  if (numEvals == 2) {
-    cout << "#Calculando No Dominados SPAN 2D ...\n";
-    tIni = clock();
-    noDomSpan = Dominancia::calcularNoDominados2D_span(inds);
-    t = clock() - tIni;
-    time_searchSP = ((double)t)/(CLOCKS_PER_SEC);
-
-    cout << "#Calculando No Dominados DV 2D ...\n";
-    tIni = clock();
-    noDomDV = Dominancia::calcularNoDominados2D_DV(inds);
-    t = clock() - tIni;
-    time_searchDV = ((double)t)/(CLOCKS_PER_SEC);
-  } else if (numEvals == 3) {
-
-    cout << "#Calculando No Dominados SPAN 3D ...\n";
-    tIni = clock();
-    noDomSpan = Dominancia::calcularNoDominados3D_span(inds);
-    t = clock() - tIni;
-    time_searchSP = ((double)t)/(CLOCKS_PER_SEC);
-
-    cout << "#Calculando No Dominados DV 3D ...\n";
-    tIni = clock();
-    noDomDV = Dominancia::calcularNoDominados3D_DV(inds);
-    t = clock() - tIni;
-    time_searchDV = ((double)t)/(CLOCKS_PER_SEC);
-  }
-
-  if (noDomSpan.size() > 0) {
-    cout << "#Alg Span, Puntos no Dominados: " << noDomSpan.size() << " \n";
-//    imprimirPtos(noDomSpan);
-  }
-
-
-  if (noDomDV.size() > 0) {
-    cout << "#Alg DV, Puntos no Dominados: " << noDomDV.size() << " \n";
-//    imprimirPtos(noDomDV);
-  }
 
   cout << "#tamanio AlgCuadr AlgSpan AlgDV\n";
-  cout << numPtos << " " << time_searchAC << " " << time_searchSP << " " << time_searchDV << "\n";
+  cout << numPtos << " " << time_searchAC << "\n";
 
   for(int i=0; i < inds.size(); i++) {
     delete inds[i];
@@ -109,9 +71,13 @@ vector<Individuo *> generaPtosAleatorios(int numPtos, int numEvals) {
   set<Individuo> datos;
 
   int numIntentos = 0;
+  cout << "# \t ******  Generando puntos *** \n";
   while (datos.size() < numPtos) {
     Individuo ind(numEvals, 0, numPtos);
     datos.insert(ind);
+    //printf("# Individuo %d generado:", numIntentos);
+    //cout << ind.evalsToString() << "\n";
+    
     numIntentos++;
   }
 

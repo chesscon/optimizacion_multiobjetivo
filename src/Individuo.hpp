@@ -12,10 +12,8 @@ class Individuo {
   private:
     vector<double> evals;
 
-//    int indOrd1;
   public:
-    int indOrd1;
-    int indOrd2;
+    int indOrd;
 
   public:
     // Genera un ind aleatorio
