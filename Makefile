@@ -7,6 +7,7 @@ SRC_DIR=src
 
 SRC_TestDom=TestDominancia.cpp Individuo.cpp Dominancia.cpp
 
+## TEST DOMINANCIA
 TestDominancia: $(addprefix $(SRC_DIR)/, $(SRC_TestDom) Individuo.hpp )
 	$(CCOMP) -O2 -o $@ $(addprefix $(SRC_DIR)/, $(SRC_TestDom) ) $(CFLAGS) 
 
@@ -20,3 +21,14 @@ test1_2D: TestDominancia
 
 test1_3D: TestDominancia
 	./TestDominancia 10 3
+
+
+## TEST Toolkit
+# Toolkit
+mainTk: $(addprefix $(SRC_DIR)/, mainTk.cpp Toolkit/*.cpp )
+	$(CCOMP) -O2 -o $@ $^ $(CFLAGS) 	
+
+WFG=1
+TOTAL_POINTS=1000
+Toolkit_WFG: mainTk
+	./mainTk WFG$(WFG) $(TOTAL_POINTS) > output/front_WFG$(WFG).txt
